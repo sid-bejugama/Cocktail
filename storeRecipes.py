@@ -39,7 +39,7 @@ for item in drinks:
         ingredient_key = f'strIngredient{cur_num}'
 
         # identifies the ingredients for a given beverage
-        cur_beverage_bit_shift = 0 # unique decimal value that represents the ingredients associated with the given beverage in binary (by position in the binary number)
+        cur_beverage_bit_shift = 0 # decimal value of the unique binary number derived from the binary shifts corresponding to each ingredient asssociated with the beverage
         while beverage[ingredient_key]:
             cur_ingredient = str(beverage[ingredient_key]).lower()
             drink_ingredients.append(cur_ingredient)
@@ -52,7 +52,7 @@ for item in drinks:
 
             ingredient_info = cur.fetchall()
             if len(ingredient_info) == 0:
-                # assigns each unique ingredient an integer value
+                # assigns each unique ingredient a unique binary shift
                 postgreSQL_insert_Query = f"""INSERT INTO "{ingredients_table}" ("{ingredient}", "{bit_shift}") VALUES ('{cur_ingredient}', '{cur_ingredient_bit}')"""
                 
                 cur.execute(postgreSQL_insert_Query)
@@ -65,7 +65,7 @@ for item in drinks:
 
             ingredient_info = cur.fetchall()
 
-            cur_beverage_bit_shift += 2**ingredient_info[0][f'{bit_shift}']
+            cur_beverage_bit_shift += 2**ingredient_info[0][f'{bit_shift}'] # appends by the decimal value of the binary shift for the given ingredient
 
 
         # inserts the beverage into the database

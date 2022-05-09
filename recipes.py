@@ -25,7 +25,7 @@ while ingredient_input != 'Done':
     ingredient_list.append(ingredient_input.lower())
     ingredient_input = input("Please type your next ingredient. Type 'Done' if finished.")
 
-# calculates the unique binary number resulting from ingredients passed in
+# calculates the decimal value of the binary number resulting from the binary shifts associated with the ingredients passed in
 cur_recipe_bit = 0
 for item in ingredient_list:
     postgreSQL_select_Query = f"""SELECT * FROM "{ingredients_table}" WHERE "{ingredient}" = '{item}'"""
